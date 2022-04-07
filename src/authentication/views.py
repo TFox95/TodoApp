@@ -1,12 +1,20 @@
 from django.contrib.auth.models import User
+from django.contrib import auth
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+
+
 from rest_framework.views import APIView
 from rest_framework import permissions
-from django.contrib import auth
 from rest_framework.response import Response
+
+from .serializers import RegisterSerializer, LoginSerializer
 
 class SignupView(APIView):
 
-    permission_classes= (permissions.AllowAny, )
+    def __init__(self):
+        self.permission_classes = [permissions.AllowAny]
+        self.serializer_class = RegisterSerializer
 
     def post(self, request, format= None):
         data= self.request.data
@@ -35,18 +43,19 @@ class SignupView(APIView):
 
 class LoginView(APIView):
     
-    permission_classes= (permissions.AllowAny, )
+    def __init__(self):
+        self.permission_classes = [permissions.AllowAny]
+        self.serializer_class = LoginSerializer
 
     def post(self, request, format= None):
 
-        LoginCred= {
-            "username": self.request.data["username"],
-            "password": self.request.data["password"],
-        }
+        requestData= {}
+        for key, value in self.request.data.items():
+            requestData.update({str(key): str(value)})
 
         try:
-            if LoginCred["username"] and LoginCred["password"] is not None:
-                user= auth.authenticate(request, username= LoginCred["username"], password= LoginCred["password"])
+            if requestData["username"] and requestData["password"] is not None:
+                user= auth.authenticate(request, username= requestData["username"], password= requestData["password"])
                 if user is not None:
                     auth.login(request, user)
                     return Response({"success": "User Authenthicated"})
@@ -58,6 +67,10 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
+
+    def __init__(self):
+        self.permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request, format= None):
 
         try:
