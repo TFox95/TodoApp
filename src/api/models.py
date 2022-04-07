@@ -28,9 +28,6 @@ class Priority(models.Model):
         return self.level
 
 
-
-
-
 class Todo(models.Model):
 
     """

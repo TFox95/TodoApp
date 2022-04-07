@@ -186,33 +186,28 @@ class TodoModify(APIView):
         try:
             requestedData = {}
             user = self.request.user
-            data = self.request.data
-            title = data["title"]
-            description = data["description"]
-            dueDate = data["dueDate"]
 
-            for key in data:
-                print(key, "-/>", data[key])
-            
+            for key, item in self.request.data.items():
+                requestedData.update({str(key): str(item)})
 
-
-
-
-
-
+            priority = None if requestedData.get(
+                "priority", None) == '' else Priority.objects.get(
+                    pk=requestedData["priority"])
+            completed = "False" if requestedData.get(
+                "completed", None) == None else requestedData.get(
+                    "completed", None).capitalize()
+            category = None if requestedData.get(
+                "primaryCategory") == '' else Category.objects.get(
+                    pk=requestedData["primaryCategory"])
 
             if user.is_staff is True:
 
                 try:
-                    priority = None if requestedData.get(
-                        "priority", None) is None else Priority.objects.get(
-                            pk=requestedData["priority"])
-                    completed = "False" if  data.get(
-                        "completed", None) is None else data.get(
-                            "completed", None).capitalize()
                     todoCreator = Todo.objects.get(pk=pk).user
-                    todo = Todo.objects.filter(pk=pk, user=todoCreator).update(title=title, description=description,
-                                                                               dueDate=dueDate, completed=completed)
+                    todo = Todo.objects.filter(pk=pk, user=todoCreator).update(
+                        title=requestedData["title"], description=requestedData["description"],
+                        dueDate=requestedData["dueDate"], completed=completed,
+                        priority=priority, primaryCategory=category)
                     getTodo = Todo.objects.get(pk=pk, user=todoCreator)
                     getSerializer = TodoSerialiers(instance=getTodo)
                     return Res(data={"success": getSerializer.data},
@@ -222,74 +217,17 @@ class TodoModify(APIView):
                     return Res(data={"error": "Not Staff"},
                                status=status.HTTP_401_UNAUTHORIZED)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             elif user == Todo.objects.get(user=user, pk=pk).user:
 
                 try:
-                    priority = None if requestedData.get(
-                        "priority", None) is None else Priority.objects.get(
-                            pk=requestedData["priority"])
-                    completed = "False" if  data.get(
-                        "completed", None) is None else data.get(
-                            "completed", None).capitalize()
-
-                    if completed is not None:
-                        completedTodo = "True"
-                        todo = Todo.objects.filter(pk=pk, user=user).update(title=title, description=description,
-                                                                            dueDate=dueDate, completed=completedTodo,
-                                                                            lastModified=timezone.now(), priority=data["priority"],
-                                                                            primaryCategory=data["primaryCategory"])
-                        getTodo = Todo.objects.get(pk=pk, user=user)
-                        getSerializer = TodoSerialiers(instance=getTodo)
-                        return Res(data={"success": getSerializer.data},
-                                   status=status.HTTP_202_ACCEPTED)
-
-                    elif completed is None:
-                        completed = "False"
-                        todo = Todo.objects.filter(pk=pk, user=user).update(title=title, description=description,
-                                                                            dueDate=dueDate, completed=completed,
-                                                                            lastModified=timezone.now(), priority=data["priority"],
-                                                                            primaryCategory=data["primaryCategory"])
-                        getTodo = Todo.objects.get(pk=pk, user=user)
-                        getSerializer = TodoSerialiers(instance=getTodo)
-                        return Res(data={"success": getSerializer.data},
-                                   status=status.HTTP_202_ACCEPTED)
+                    todo = Todo.objects.filter(pk=pk, user=user).update(title=requestedData["title"], description=requestedData["description"],
+                                                                        dueDate=requestedData["dueDate"], completed=requestedData["completed"],
+                                                                        lastModified=timezone.now(), priority=requestedData["priority"],
+                                                                        primaryCategory=requestedData["primaryCategory"])
+                    getTodo = Todo.objects.get(pk=pk, user=user)
+                    getSerializer = TodoSerialiers(instance=getTodo)
+                    return Res(data={"success": getSerializer.data},
+                               status=status.HTTP_202_ACCEPTED)
 
                 except:
                     return Res(data={"error": "Not Authorized from user"},
@@ -300,8 +238,8 @@ class TodoModify(APIView):
                            status=status.HTTP_401_UNAUTHORIZED)
 
         except:
-            return Res(data={"error": "Unauthorized changes."},
-                       status=status.HTTP_401_UNAUTHORIZED)
+            return Res(data={"error": "Bad Request."},
+                       status=status.HTTP_400_BAD_REQUEST)
 
     @method_decorator(decorator=csrf_protect, name="dispatch")
     def delete(self, request, pk):
