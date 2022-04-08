@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from rest_framework.views import APIView
 from rest_framework import permissions
-from rest_framework.response import Response
+from rest_framework.response import Response as Res
 
 from .serializers import RegisterSerializer, LoginSerializer
 
@@ -17,28 +17,26 @@ class SignupView(APIView):
         self.serializer_class = RegisterSerializer
 
     def post(self, request, format= None):
-        data= self.request.data
 
-        registerCred= {
-            "username": data["username"],
-            "password": data["password"],
-            "re_password": data["re_password"],
-        }
+        requestData= {}
+        for key, item in self.request.data.items():
+            requestData.update({str(key): str(item)})
+        print(requestData)
         
         try:
-            if registerCred["password"] == registerCred["re_password"]:
-                    if User.objects.filter(username=registerCred["username"]).exists():
-                        return Response({"error": "Username already exists"})
+            if requestData["password"] == requestData["re_password"]:
+                    if User.objects.filter(username=requestData["username"]).exists():
+                        return Res(data={"error": "Username already exists"})
                     else:
-                        if len(registerCred["password"]) <= 6:
-                            return Response({"error": "Password must be at least 7 characters long"})
+                        if len(requestData["password"]) <= 6:
+                            return Res(data={"error": "Password must be at least 7 characters long"})
                         else:
-                            user= User.objects.create_user(username= registerCred["username"], password= registerCred["password"])
-                            return Response({"success": f"User, {user.username} has been created Successfully!"})
+                            user= User.objects.create_user(username= requestData["username"], password= requestData["password"])
+                            return Res(data={"success": f"User, {user.username} has been created Successfully!"})
             else:
-                return Response({"error": "Passwords don't match"})
+                return Res(data={"error": "Passwords don't match"})
         except:
-            return Response({"error": "Opps, Something went wrong"})
+            return Res(data={"error": "Opps, Something went wrong"})
 
 
 class LoginView(APIView):
@@ -58,12 +56,12 @@ class LoginView(APIView):
                 user= auth.authenticate(request, username= requestData["username"], password= requestData["password"])
                 if user is not None:
                     auth.login(request, user)
-                    return Response({"success": "User Authenthicated"})
+                    return Res(data={"success": "User Authenthicated"})
                 else:
-                    return Response({"error": "Error Authenticating"})
+                    return Res(data={"error": "Error Authenticating"})
 
         except:
-            return Response({"error": "Opps, Something went wrong "})
+            return Res(data={"error": "Opps, Something went wrong "})
 
 
 class LogoutView(APIView):
@@ -75,11 +73,13 @@ class LogoutView(APIView):
 
         try:
             user = self.request.user
+            username = user.username
 
             if user.is_active:
                 auth.logout(request)
-                return Response({"success": "Logged out"})
+                return Res(data={"success": f"{username} has been Logged out"},
+                    )
             else:
-                return Response({"error": "user no logged in."})
+                return Res(data={"error": "There's no user currently logged in"})
         except:
-            return Response({"error": "Something went wrong!"})
+            return Res(data={"error": "Something went wrong!"})
