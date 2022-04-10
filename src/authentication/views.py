@@ -5,14 +5,34 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 
 from rest_framework.views import APIView
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.response import Response as Res
 
 from .serializers import RegisterSerializer, LoginSerializer
 
+class IsAuthenticatedView(APIView):
+    
+    def __init__(self):
+        APIView.__init__(self)
+        self.permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+
+        user = self.request.user
+
+        if user.is_authenticated:
+            return  Res(data={"success": f"user, {user.username}, is currently authenticated and logged in"},
+                        status=status.HTTP_200_OK)
+        
+        else:
+            return Res(data={"error": "user is not currently logged in; Please Signup or Login"},
+                        status=status.HTTP_401_UNAUTHORIZED)
+
+
 class SignupView(APIView):
 
     def __init__(self):
+        APIView.__init__(self)
         self.permission_classes = [permissions.AllowAny]
         self.serializer_class = RegisterSerializer
 
@@ -42,6 +62,7 @@ class SignupView(APIView):
 class LoginView(APIView):
     
     def __init__(self):
+        APIView.__init__(self)
         self.permission_classes = [permissions.AllowAny]
         self.serializer_class = LoginSerializer
 
@@ -67,6 +88,7 @@ class LoginView(APIView):
 class LogoutView(APIView):
 
     def __init__(self):
+        APIView.__init__(self)
         self.permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format= None):

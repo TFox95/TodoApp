@@ -61,7 +61,7 @@ class TodoDetail(APIView):
             raise Http404
 
     @method_decorator(decorator=csrf_exempt, name="dispatch")
-    def get(self, request, pk):
+    def get(self, request, pk, format=None):
 
         todo = self.get_object(pk)
         serializer = TodoSerialiers(todo)
@@ -162,7 +162,7 @@ class TodoModify(APIView):
             raise Http404
 
     @method_decorator(decorator=csrf_exempt, name="dispatch")
-    def get(self, request, pk):
+    def get(self, request, pk, format=None):
         try:
             todo = self.get_object(pk)
             serializer = TodoSerialiers(todo)
