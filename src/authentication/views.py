@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import (csrf_exempt, csrf_protect,
+                                          ensure_csrf_cookie)
 
 
 from rest_framework.views import APIView
@@ -9,6 +10,25 @@ from rest_framework import permissions, status
 from rest_framework.response import Response as Res
 
 from .serializers import RegisterSerializer, LoginSerializer
+
+class EnsurecsrfToken(APIView):
+
+    def __init__(self):
+        APIView.__init__(self)
+        self.permission_classes = [permissions.AllowAny]
+
+    @method_decorator(ensure_csrf_cookie, name="dispatch")
+    def get(self, request, *args):
+        
+        try:
+            return Res(data={"success": "csrfToken has been ensured successfully"},
+                        status=status.HTTP_201_CREATED)
+        
+        except:
+            return Res(data={"error": "server error"},
+                       status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class IsAuthenticatedView(APIView):
     
@@ -27,6 +47,8 @@ class IsAuthenticatedView(APIView):
         else:
             return Res(data={"error": "user is not currently logged in; Please Signup or Login"},
                         status=status.HTTP_401_UNAUTHORIZED)
+
+    
 
 
 class SignupView(APIView):
