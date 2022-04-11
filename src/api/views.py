@@ -5,6 +5,7 @@ from rest_framework.response import Response as Res
 from .serializers import TodoSerialiers
 from .models import Todo, Category, Priority
 
+from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -19,6 +20,21 @@ class TodoView(APIView):
         self.permission_classes = [permissions.IsAuthenticated]
         self.serializer_class = TodoSerialiers
 
+    def get_object(self, pk):
+        
+        return get_object_or_404(self.get_queryset(), pk=pk)
+    
+    def get(self, request, pk=None):
+
+        id = pk or self.request.query_params.get("id")
+        if id:
+            serializer = TodoSerialiers(instance=self.get_object(id))
+        
+        else:
+            serializer = TodoSerialiers(instance=self.get_object(), many=True)
+        
+        return Res(data={serializer.data},
+                   status=status.HTTP_200_OK)
     
 
 
