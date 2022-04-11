@@ -13,6 +13,9 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 # Create your views here.
 
+class TodoView(APIView):
+    pass
+
 
 class TodoList(APIView):
 
