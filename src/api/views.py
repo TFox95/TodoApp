@@ -26,15 +26,89 @@ class TodoView(APIView):
     
     def get(self, request, pk=None):
 
-        id = pk or self.request.query_params.get("id")
-        if id:
-            serializer = TodoSerialiers(instance=self.get_object(id))
+        id = pk or self.request.query_params.get("pk")
+        requestedData = {}
+        for key, value in self.request.data.items():
+            requestedData.update({str(key): str(value)})
         
-        else:
-            serializer = TodoSerialiers(instance=self.get_object(), many=True)
-        
-        return Res(data={serializer.data},
-                   status=status.HTTP_200_OK)
+        try:
+            user = requestedData.get("user")
+            todoCreator = Todo.objects.get(pk=id).user
+            if user == todoCreator or user.is_staff:
+                if id is not None:
+                    serializer = TodoSerialiers(instance=self.get_object(id))
+                    return Res(data={serializer.data},
+                        status=status.HTTP_200_OK)
+        except:
+            user = requestedData.get("user")
+            todoCreator = Todo.objects.get(pk=id).user
+            if user == todoCreator:
+                todo
+                serializer = TodoSerialiers(instance=self.get_object(), many=True)
+                return Res(data={serializer.data},
+                        status=status.HTTP_200_OK)
+            elif user == user.is_staff:
+
+
+    @method_decorator(decorator=csrf_protect, name="dispatch")
+    def post(self, request):
+
+        try:
+            serializer = TodoSerialiers(data=request.data)
+
+            if serializer.is_valid():
+                print(self.request.data)
+
+                try:
+                    # The reason why we're establishing a new dict is because serializer.data is immutatable.
+                    # So we're going to create a new Dict that will inherit the values of serializer.data .
+                    requestedData = {
+                        "user": self.request.user,
+                    }
+                    requestedData.update(serializer.data)
+                    priority = None if requestedData.get(
+                        "priority", None) is None else Priority.objects.get(
+                            pk=requestedData["priority"])
+                    category = None if requestedData.get(
+                        "primaryCategory") is None else Category.objects.get(
+                            pk=requestedData["primaryCategory"])
+
+                    if requestedData.get("dueDate") is None:
+                        requestedData.update(
+                            {"dueDate": timezone.now().date()})
+                        Todo.objects.create(user=requestedData["user"], title=requestedData["title"],
+                                            description=requestedData["description"], dueDate=requestedData["dueDate"],
+                                            completed=requestedData["completed"], priority=priority,
+                                            primaryCategory=category)
+                        requestedData.pop("user")
+                        return Res(data={"success": requestedData},
+                                   status=status.HTTP_200_OK)
+
+                    elif requestedData.get("dueDate") is not None:
+                        Todo.objects.create(user=requestedData["user"], title=requestedData["title"],
+                                            description=requestedData["description"], dueDate=requestedData["dueDate"],
+                                            completed=requestedData["completed"], priority=priority,
+                                            primaryCategory=category)
+                        requestedData.pop("user")
+                        return Res(data={"success": requestedData},
+                                   status=status.HTTP_200_OK)
+
+                    else:
+                        return Res(data={"error": f"Title and Description fields must not be empty, \n {serializer.errors}"},
+                                   status=status.HTTP_406_NOT_ACCEPTABLE)
+
+                except:
+                    return Res(data={"error": f"Entry must contain title and description fields"},
+                               status=status.HTTP_406_NOT_ACCEPTABLE)
+
+            else:
+                return Res(data=serializer.errors,
+                           status=status.HTTP_400_BAD_REQUEST)
+
+        except:
+            return Res(data={"error": "was not able to create entry; please try again later"})
+
+
     
 
 
