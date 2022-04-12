@@ -39,7 +39,7 @@ class TodoView(APIView):
                 return Todo.objects.filter(user=user)
         
         else:
-            return Http404
+            raise Http404
 
     @method_decorator(decorator=csrf_exempt, name="dispatch")
     def get(self, request, pk=None, format=None):
@@ -62,11 +62,12 @@ class TodoView(APIView):
                             status=status.HTTP_200_OK)
 
                 else:
-                    return Res(data={"error": "user either not logged in"})
+                    return Res(data={"error": "user not logged in"},
+                               status=status.HTTP_409_CONFLICT)
 
             except:
                 return Res(data={"error": "Todo's was unable to load. Please, try again"},
-                        status=status.HTTP_400_BAD_REQUEST)
+                        status=status.HTTP_408_REQUEST_TIMEOUT)
         
         elif pk is not None:
             return Res(data={"failed"})
