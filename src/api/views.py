@@ -45,9 +45,8 @@ class TodoView(APIView):
     def get(self, request, pk=None, format=None):
         
         user = self.request.user
-        todoCount = len(self.get_object(pk=pk))
         
-        if todoCount >= 2:
+        if pk is None:
             try:
 
                 if user.is_staff:
@@ -69,8 +68,8 @@ class TodoView(APIView):
                 return Res(data={"error": "Todo's was unable to load. Please, try again"},
                         status=status.HTTP_400_BAD_REQUEST)
         
-        elif todoCount == 1:
-            pass
+        elif pk is not None:
+            return Res(data={"failed"})
         
     
 
