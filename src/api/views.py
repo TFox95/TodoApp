@@ -16,36 +16,36 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 # Create your views here.
 
 class TodoView(APIView):
-    
+
     def __init__(self, *args):
         self.permission_classes = [permissions.IsAuthenticated]
         self.serializer_class = TodoSerialiers
 
     def get_object(self, pk):
         user = self.request.user
-        
+
         if user.is_staff:
             try:
                 return Todo.objects.get(pk=pk)
 
             except:
                 return Todo.objects.all()
-        
+
         elif user.is_authenticated:
             try:
                 return Todo.objects.get(pk=pk, user=user)
 
             except:
                 return Todo.objects.filter(user=user)
-        
+
         else:
             raise Http404
 
     @method_decorator(decorator=csrf_exempt, name="dispatch")
     def get(self, request, pk=None, format=None):
-        
+
         user = self.request.user
-        
+
         if pk is None:
             try:
 
@@ -53,13 +53,13 @@ class TodoView(APIView):
                     todos = self.get_object(pk=pk)
                     serializer = TodoSerialiers(todos, many=True)
                     return Res(data=serializer.data,
-                            status=status.HTTP_200_OK)
+                               status=status.HTTP_200_OK)
 
                 elif user.is_authenticated:
                     todos = Todo.objects.filter(user=request.user)
                     serializer = TodoSerialiers(todos, many=True)
                     return Res(data=serializer.data,
-                            status=status.HTTP_200_OK)
+                               status=status.HTTP_200_OK)
 
                 else:
                     return Res(data={"error": "user not logged in"},
@@ -67,12 +67,27 @@ class TodoView(APIView):
 
             except:
                 return Res(data={"error": "Todo's was unable to load. Please, try again"},
-                        status=status.HTTP_408_REQUEST_TIMEOUT)
-        
+                           status=status.HTTP_408_REQUEST_TIMEOUT)
+
         elif pk is not None:
-            return Res(data={"failed"})
-        
-    
+            todo = self.get_object(pk)
+            serializer = TodoSerialiers(todo)
+            todoCreator = Todo.objects.get(pk=pk).user
+
+            try:
+                if user == todoCreator or user.is_staff:
+                    return Res(data=serializer.data, status=status.HTTP_200_OK)
+
+                else:
+                    return Res(data={"error": "you cannot access the data of this todo."},
+                               status=status.HTTP_401_UNAUTHORIZED)
+            except:
+                return Res(data={"error": "Unauthorized"},
+                           status=status.HTTP_401_UNAUTHORIZED)
+
+        else:
+            Res(data={"error": "server timeout"},
+                status=status.HTTP_504_GATEWAY_TIMEOUT)
 
     @method_decorator(decorator=csrf_protect, name="dispatch")
     def post(self, request):
@@ -131,9 +146,6 @@ class TodoView(APIView):
 
         except:
             return Res(data={"error": "was not able to create entry; please try again later"})
-
-
-    
 
 
 class TodoList(APIView):
@@ -343,7 +355,8 @@ class TodoModify(APIView):
 
                 try:
                     todo = Todo.objects.filter(pk=pk, user=user).update(title=requestedData["title"], description=requestedData["description"],
-                                                                        dueDate=requestedData["dueDate"], completed=requestedData["completed"],
+                                                                        dueDate=requestedData[
+                                                                            "dueDate"], completed=requestedData["completed"],
                                                                         lastModified=timezone.now(), priority=requestedData["priority"],
                                                                         primaryCategory=requestedData["primaryCategory"])
                     getTodo = Todo.objects.get(pk=pk, user=user)
