@@ -44,27 +44,33 @@ class TodoView(APIView):
     @method_decorator(decorator=csrf_exempt, name="dispatch")
     def get(self, request, pk=None, format=None):
         
-        try:
-            user = self.request.user
+        user = self.request.user
+        todoCount = len(self.get_object(pk=pk))
+        
+        if todoCount >= 2:
+            try:
 
-            if user.is_staff:
-                todos = Todo.objects.all()
-                serializer = TodoSerialiers(todos, many=True)
-                return Res(data=serializer.data,
-                           status=status.HTTP_200_OK)
+                if user.is_staff:
+                    todos = self.get_object(pk=pk)
+                    serializer = TodoSerialiers(todos, many=True)
+                    return Res(data=serializer.data,
+                            status=status.HTTP_200_OK)
 
-            elif user.is_authenticated:
-                todos = Todo.objects.filter(user=request.user)
-                serializer = TodoSerialiers(todos, many=True)
-                return Res(data=serializer.data,
-                           status=status.HTTP_200_OK)
+                elif user.is_authenticated:
+                    todos = Todo.objects.filter(user=request.user)
+                    serializer = TodoSerialiers(todos, many=True)
+                    return Res(data=serializer.data,
+                            status=status.HTTP_200_OK)
 
-            else:
-                return Res(data={"error": "user either not logged in"})
+                else:
+                    return Res(data={"error": "user either not logged in"})
 
-        except:
-            return Res(data={"error": "Todo's was unable to load. Please, try again"},
-                       status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Res(data={"error": "Todo's was unable to load. Please, try again"},
+                        status=status.HTTP_400_BAD_REQUEST)
+        
+        elif todoCount == 1:
+            pass
         
     
 
