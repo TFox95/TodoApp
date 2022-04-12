@@ -1,3 +1,4 @@
+from urllib import request
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response as Res
@@ -21,34 +22,51 @@ class TodoView(APIView):
         self.serializer_class = TodoSerialiers
 
     def get_object(self, pk):
+        user = self.request.user
         
-        return get_object_or_404(self.get_queryset(), pk=pk)
-    
-    def get(self, request, pk=None):
+        if user.is_staff:
+            try:
+                return Todo.objects.get(pk=pk)
 
-        id = pk or self.request.query_params.get("pk")
-        requestedData = {}
-        for key, value in self.request.data.items():
-            requestedData.update({str(key): str(value)})
+            except:
+                return Todo.objects.all()
+        
+        elif user.is_authenticated:
+            try:
+                return Todo.objects.get(pk=pk, user=user)
+
+            except:
+                return Todo.objects.filter(user=user)
+        
+        else:
+            return Http404
+
+    @method_decorator(decorator=csrf_exempt, name="dispatch")
+    def get(self, request, pk=None, format=None):
         
         try:
-            user = requestedData.get("user")
-            todoCreator = Todo.objects.get(pk=id).user
-            if user == todoCreator or user.is_staff:
-                if id is not None:
-                    serializer = TodoSerialiers(instance=self.get_object(id))
-                    return Res(data={serializer.data},
-                        status=status.HTTP_200_OK)
-        except:
-            user = requestedData.get("user")
-            todoCreator = Todo.objects.get(pk=id).user
-            if user == todoCreator:
-                todo
-                serializer = TodoSerialiers(instance=self.get_object(), many=True)
-                return Res(data={serializer.data},
-                        status=status.HTTP_200_OK)
-            elif user == user.is_staff:
+            user = self.request.user
 
+            if user.is_staff:
+                todos = Todo.objects.all()
+                serializer = TodoSerialiers(todos, many=True)
+                return Res(data=serializer.data,
+                           status=status.HTTP_200_OK)
+
+            elif user.is_authenticated:
+                todos = Todo.objects.filter(user=request.user)
+                serializer = TodoSerialiers(todos, many=True)
+                return Res(data=serializer.data,
+                           status=status.HTTP_200_OK)
+
+            else:
+                return Res(data={"error": "user either not logged in"})
+
+        except:
+            return Res(data={"error": "Todo's was unable to load. Please, try again"},
+                       status=status.HTTP_400_BAD_REQUEST)
+        
+    
 
     @method_decorator(decorator=csrf_protect, name="dispatch")
     def post(self, request):
