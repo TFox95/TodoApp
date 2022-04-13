@@ -104,8 +104,6 @@ class TodoView(APIView):
                 serializer = TodoSerialiers(data=request.data)
 
                 if serializer.is_valid():
-                    print(self.request.data)
-
                     try:
                         # The reason why we're establishing a new dict is because serializer.data is immutatable.
                         # So we're going to create a new Dict that will inherit the values of serializer.data .
