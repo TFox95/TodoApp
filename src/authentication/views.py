@@ -63,7 +63,6 @@ class SignupView(APIView):
         requestData= {}
         for key, item in self.request.data.items():
             requestData.update({str(key): str(item)})
-        print(requestData)
         
         try:
             if requestData["password"] == requestData["re_password"]:
