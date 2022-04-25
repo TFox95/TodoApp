@@ -157,4 +157,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-django_on_heroku.settings(lacals())
+django_on_heroku.settings(locals())
