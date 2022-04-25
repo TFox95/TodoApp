@@ -1,0 +1,5 @@
+web: gunicorn Todo.wsgi
+release: python manage.py makemigrations --no-imput
+release: python manage.py collectstatic --no-imput
+release: python manage.py migrate --no-imput
+
