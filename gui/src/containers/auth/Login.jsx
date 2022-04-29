@@ -4,9 +4,10 @@ const Login = () => {
 
     return (
         <div className="container">
-            <section className="mt-5 p-5 bg-light">
+            <section className="rounded shadow mx-auto mt-5 p-5 bg-light">
                 <h2>Login</h2>
                 <p className="lead">Sign into your Asterisks Account.</p>
+                <hr className="my-3" />
                 <form>
                     <div className="mb-3">
                         <label id="username" className="form-label" >Username</label>

@@ -4,7 +4,7 @@ const Home = () => {
 
     return (
         <div className="container">
-            <section className="mt-5 p-5 bg-light">
+            <section className="rounded shadow mx-auto mt-5 p-5 bg-light">
                 <h1>Welcome to *Asterisks*</h1>
                 <p className="lead">
                     This is a S.P.A; with Django(Python) REST as the backend and React(JSX) as the frontend
