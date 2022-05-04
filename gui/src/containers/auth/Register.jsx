@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { registerAPI } from "../../actions/authActions";
+import CSRFToken from "../../actions/csrftoken";
 
 const Register = ({registerAPI}) => {
     const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const Register = ({registerAPI}) => {
     };
 
     if (accountCreated)
-        return <Navigate to='/'/>
+        return <Navigate to='/login'/>
 
     return (
         <div className="container mt-5">
@@ -34,22 +35,51 @@ const Register = ({registerAPI}) => {
                 <h2>Register</h2>
                 <p className="lead">Create Your Asterisks account here!</p>
                 <hr className="my-3" />
-                <form>
-                    
+                <form onSubmit={e => onSubmit(e)}>
+                    <CSRFToken/>
                     <div className="mb-3">
                         <label id="username" className="form-label" >Username</label>
-                        <input type="text" className="form-control" id="username" />
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="username"
+                            name="username"
+                            onChange={e => onChange(e)}
+                            value={username}
+                            required
+                        />
                     </div>
                     <div className="mb-3">
                         <label id="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="password" />
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            name="password"
+                            onChange={e => onChange(e)}
+                            minLength='7'
+                            value={password}
+                            required
+                        />
                     </div>
                     <div className="mb-3">
                         <label id="re_password" className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" id="re_password" />
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="re_password"
+                            name="re_password"
+                            onChange={e => onChange(e)}
+                            minLength='7'
+                            value={re_password}
+                            required
+                        />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+                <p className="mt-3">
+                    Already have an Account? <NavLink to="/login">Click Here</NavLink>
+                </p>
             </section>
         </div>
     );
