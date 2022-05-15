@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Navigate, NavLink } from "react-router-dom";
-import { registerAPI } from "../../actions/authActions";
+import registerAPI from "../../actions/auth/registeraction";
 import CSRFToken from "../../actions/csrftoken";
 
-const Register = ({registerAPI}) => {
+const Register = ({isAuthenticated, registerAPI}) => {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -23,10 +23,14 @@ const Register = ({registerAPI}) => {
             registerAPI(username, password, re_password);
             setAccountCreated(true)
 
+        } else {
+            alert("Passwords don't Match.")
         }
     };
+    if (isAuthenticated)
+        return <Navigate to="/Dashboard" />
 
-    if (accountCreated)
+    else if (accountCreated)
         return <Navigate to='/login'/>
 
     return (
@@ -85,4 +89,8 @@ const Register = ({registerAPI}) => {
     );
 };
 
-export default connect(null, {registerAPI})(Register);
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {registerAPI})(Register);

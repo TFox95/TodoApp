@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-const Home = () => {
-
+import { connect } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+const Home = (isAuthenticated) => {
+    
+    if (isAuthenticated)
+        return <Navigate to="/Dashboard"/>
     return (
         <div className="container">
             <section className="rounded shadow mx-auto mt-5 p-5 bg-light">
@@ -17,4 +20,8 @@ const Home = () => {
     );
 };
 
-export default Home;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps)(Home);

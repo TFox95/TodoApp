@@ -1,7 +1,15 @@
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logoutAPI } from "../actions/auth/logoutaction";
 
-const Navbar = () => {
+
+const Navbar = ({ isAuthenticated, logoutAPI, token }) => {
+
+    function handleLogout(e) {
+        e.preventDefault();
+        logoutAPI(token)
+      }
 
     const anonLinks = (
         <Fragment>
@@ -21,12 +29,12 @@ const Navbar = () => {
             </ul>
         </Fragment>
     );
-        // eslint-disable-next-line
+
     const authLinks = (
         <Fragment>
             <ul className="navbar-nav me-auto">
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/" >Dashboard</NavLink>
+                    <NavLink className="nav-link" to="/Dashboard" >Dashboard</NavLink>
                 </li>
                 <li>
                     <NavLink className="nav-link" to="/create" >Create Todo</NavLink>
@@ -37,7 +45,7 @@ const Navbar = () => {
                     <NavLink className="nav-link" to="/Account" >Account</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="#!" >Logout</NavLink>
+                    <NavLink className="nav-link" to="#!" onClick={handleLogout} >Logout</NavLink>
                 </li>
             </ul>
         </Fragment>
@@ -52,7 +60,7 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        {anonLinks}
+                        {isAuthenticated ? authLinks : anonLinks}
                     </div>
                 </div>
             </nav>
@@ -60,4 +68,9 @@ const Navbar = () => {
     );
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token
+})
+
+export default connect(mapStateToProps, { logoutAPI })(Navbar);

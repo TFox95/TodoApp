@@ -13,6 +13,7 @@ from rest_framework.response import Response as Res
 
 from .serializers import RegisterSerializer, LoginSerializer
 
+csrfProtectedMethod = method_decorator(csrf_protect)
 
 class EnsurecsrfToken(APIView):
 
@@ -20,7 +21,7 @@ class EnsurecsrfToken(APIView):
         APIView.__init__(self)
         self.permission_classes = [permissions.AllowAny]
 
-    @method_decorator(ensure_csrf_cookie, name="dispatch")
+    @method_decorator(ensure_csrf_cookie)
     def get(self, request, *args):
 
         try:
@@ -101,8 +102,8 @@ class LoginView(APIView):
                     auth.login(request, user)
                     token = Token.objects.get_or_create(user=user)
                     requestData.pop("password")
-                    requestData.update({"token": str(token[0])})
-                    return Res(data=requestData, status=status.HTTP_200_OK)
+                    requestData.update({"token": f"Token {str(token[0])}"})
+                    return Res(data={"success" :requestData}, status=status.HTTP_200_OK)
 
                 else:
                     return Res(data={"error": "Error Authenticating"}, status=status.HTTP_400_BAD_REQUEST)

@@ -1,13 +1,14 @@
 import {
     REGISTER_SUCCESS, REGISTER_FAIL,
     LOGIN_SUCCESS, LOGIN_FAIL,
-    LOGOUT_SUCCESS, LOGOUT_FAIL
+    LOGOUT_SUCCESS, LOGOUT_FAIL,
+    ACQUIRE_USERNAME_SUCCESS, ACQUIRE_USERNAME_FAIL
 } from "../actions/types";
 
 const initialState = {
     isAuthenticated: null,
-    username: '',
-    token: ''
+    username: null,
+    token: null
 };
 
 export default function (state = initialState, action) {
@@ -22,17 +23,25 @@ export default function (state = initialState, action) {
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuthenticated:true,
-                username: payload,
+                isAuthenticated: true,
                 token: payload
+
             }
         case LOGOUT_SUCCESS:
             return {
                 ...state,
-                isAuthenticated:false,
-                username: '',
-                token: ''
+                isAuthenticated: false,
+                token: null,
+                username: null
             }
+        case ACQUIRE_USERNAME_SUCCESS:
+            return {
+                ...state,
+                username: payload
+            }
+        case ACQUIRE_USERNAME_FAIL:
+        case LOGIN_FAIL:
+        case LOGOUT_FAIL:
         case REGISTER_FAIL:
             return state
 
