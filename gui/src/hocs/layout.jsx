@@ -1,13 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import Navbar from "./Navbar";
 import checkAuthentication from "../actions/auth/authenticatedaction";
 
-const Layout = ({ children, token, checkAuthentication }) => {
-
-    useEffect(() => {
-        checkAuthentication(token);
-    }, []);
+const Layout = ({ children }) => {
 
     return (
         <Fragment>

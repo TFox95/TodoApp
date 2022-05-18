@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+
 const Home = (isAuthenticated) => {
     
-    if (isAuthenticated)
+    if (isAuthenticated === true)
         return <Navigate to="/Dashboard"/>
     return (
         <div className="container">
