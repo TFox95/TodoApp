@@ -26,19 +26,13 @@ const loginAPI = (username, password) => async dispatch => {
         if (res.data.success) {
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: res.data.success.token
-            });
-            dispatch({
-                type: ACQUIRE_USERNAME_SUCCESS,
-                payload: res.data.success.username
+                payloadOne: res.data.success.token,
+                payloadTwo: res.data.success.username
             });
         } else {
             dispatch({
                 type: LOGIN_FAIL
             });
-            dispatch({
-                type: ACQUIRE_USERNAME_FAIL
-            })
         }
 
     } catch (err) {

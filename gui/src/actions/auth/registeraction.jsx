@@ -24,11 +24,12 @@ const registerAPI = (username, password, re_password) => async dispatch => {
 
         if (res.data.error) {
             dispatch({
-                type: REGISTER_FAIL
+                type: REGISTER_FAIL,
             })
         } else if (res.data.success) {
             dispatch({
-                type: REGISTER_SUCCESS
+                type: REGISTER_SUCCESS,
+                payload: false
             })
         }
 

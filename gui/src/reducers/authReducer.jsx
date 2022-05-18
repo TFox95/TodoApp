@@ -2,7 +2,7 @@ import {
     REGISTER_SUCCESS, REGISTER_FAIL,
     LOGIN_SUCCESS, LOGIN_FAIL,
     LOGOUT_SUCCESS, LOGOUT_FAIL,
-    ACQUIRE_USERNAME_SUCCESS, ACQUIRE_USERNAME_FAIL
+    AUTHENTICATED_SUCCESS, AUTHENTICATED_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -11,35 +11,36 @@ const initialState = {
     token: null
 };
 
-export default function auth (state = initialState, action) {
-    const { type, payload } = action;
+function auth (state = initialState, action) {
+    const { type, payloadOne, payloadTwo } = action;
 
     switch (type) {
+        case AUTHENTICATED_SUCCESS:
+        case AUTHENTICATED_FAIL:
+            return {
+                ...state,
+                isAuthenticated: payloadOne
+            }
         case REGISTER_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: false
+                isAuthenticated: payloadOne
             }
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: true,
-                token: payload
+                token: payloadOne,
+                username: payloadTwo
 
             }
         case LOGOUT_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: false,
+                isAuthenticated: null,
                 token: null,
                 username: null
             }
-        case ACQUIRE_USERNAME_SUCCESS:
-            return {
-                ...state,
-                username: payload
-            }
-        case ACQUIRE_USERNAME_FAIL:
         case LOGIN_FAIL:
         case LOGOUT_FAIL:
         case REGISTER_FAIL:
@@ -49,3 +50,5 @@ export default function auth (state = initialState, action) {
             return state
     }
 }
+
+export default auth;
