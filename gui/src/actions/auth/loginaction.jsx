@@ -1,7 +1,6 @@
 import axios from "axios";
 import {
     LOGIN_SUCCESS, LOGIN_FAIL,
-    ACQUIRE_USERNAME_SUCCESS, ACQUIRE_USERNAME_FAIL
 } from "../types";
 import Cookie from "js-cookie";
 
@@ -22,12 +21,13 @@ const loginAPI = (username, password) => async dispatch => {
             data: { username, password },
             config
         });
+        let Res = res.data.success
 
-        if (res.data.success) {
+        if (Res) {
             dispatch({
                 type: LOGIN_SUCCESS,
-                payloadOne: res.data.success.token,
-                payloadTwo: res.data.success.username
+                payloadOne: Res.token,
+                payloadTwo: Res.username
             });
         } else {
             dispatch({

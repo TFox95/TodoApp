@@ -17,28 +17,33 @@ const checkAuthentication = (token) => async dispatch => {
                 'Authorization': `${token}`
             }
         });
+        const Res = res.data;
 
-        if (res.data.success) {
+        if (Res.success) {
             dispatch({
                 type: AUTHENTICATED_SUCCESS,
-                payloadOne: true
+                payloadOne: Res.username,
+                payloadTwo: Res.token
             });
-        } else if (res.data.error || res.data.isAuthenticated === 'error') {
+        } else if (res.error) {
             dispatch({
                 type: AUTHENTICATED_FAIL,
-                payloadOne: null
+                payloadOne: null,
+                payloadTwo: null
             });
         } else {
             dispatch({
                 type: AUTHENTICATED_FAIL,
-                payloadOne: null
+                payloadOne: null,
+                payloadTwo: null
             });
         }
 
     } catch (err) {
         dispatch({
             type: AUTHENTICATED_FAIL,
-            payloadOne: null
+            payloadOne: null,
+            payloadTwo: null
         })
     };
 };

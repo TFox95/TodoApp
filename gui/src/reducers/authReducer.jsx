@@ -16,7 +16,6 @@ function auth (state = initialState, action) {
 
     switch (type) {
         case AUTHENTICATED_SUCCESS:
-        case AUTHENTICATED_FAIL:
             return {
                 ...state,
                 isAuthenticated: payloadOne
@@ -34,6 +33,7 @@ function auth (state = initialState, action) {
                 username: payloadTwo
 
             }
+        case AUTHENTICATED_FAIL:
         case LOGOUT_SUCCESS:
             return {
                 ...state,

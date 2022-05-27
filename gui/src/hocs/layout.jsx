@@ -1,9 +1,16 @@
 import React, { Fragment } from "react";
-import { connect } from "react-redux";
 import Navbar from "./Navbar";
-import checkAuthentication from "../actions/auth/authenticatedaction";
+import store from "../store";
+import { authStateLoader } from "../actions/PersistState";
+
 
 const Layout = ({ children }) => {
+
+    const loader = new authStateLoader();
+
+    store.subscribe(() => {
+        loader.saveState(store.getState());
+    });
 
     return (
         <Fragment>
@@ -13,10 +20,4 @@ const Layout = ({ children }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    token: state.auth.token,
-    isAuthenticated: state.auth.isAuthenticated,
-    username: state.auth.isAuthenticated
-})
-
-export default connect(mapStateToProps, {checkAuthentication})(Layout);
+export default Layout;

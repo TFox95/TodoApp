@@ -4,7 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 
 const Home = (isAuthenticated) => {
     
-    if (isAuthenticated === true)
+    if (isAuthenticated)
         return <Navigate to="/Dashboard"/>
     return (
         <div className="container">
