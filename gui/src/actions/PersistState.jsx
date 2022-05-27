@@ -1,11 +1,11 @@
 
 const persistedState = () => { // <-- FOCUS HERE
-    const lastState = localStorage.getItem("http://Asterisks.com:reduxState");
+    let lastState = localStorage.getItem("http://Asterisks.com:reduxState");
     if (lastState !== null) {
         return JSON.parse(lastState) // re-initialize the store
 
     } else {
-        return JSON.parse('null')
+        return null
     }
 };
 

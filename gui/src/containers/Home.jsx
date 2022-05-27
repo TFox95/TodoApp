@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 
 const Home = (isAuthenticated) => {
-    
-    if (isAuthenticated)
-        return <Navigate to="/Dashboard"/>
+    let Authenticated = JSON.stringify(isAuthenticated['isAuthenticated'])
+
+    if (Authenticated === "true")
+        return <Navigate to="/Dashboard" />
+
     return (
         <div className="container">
             <section className="rounded shadow mx-auto mt-5 p-5 bg-light">
