@@ -5,7 +5,6 @@ import { authStateLoader } from "./actions/PersistState";
 import rootReducer from "./reducers/indexReducer";
 
 const authInitialState = new authStateLoader();
-console.log(authInitialState.loadState());
 
 const middleware = [thunk];
 

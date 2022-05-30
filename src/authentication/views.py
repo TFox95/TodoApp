@@ -13,7 +13,7 @@ from rest_framework.response import Response as Res
 
 from .serializers import RegisterSerializer, LoginSerializer
 
-csrfProtectedMethod = method_decorator(csrf_protect)
+csrfProtectedMethod = method_decorator(csrf_protect, name="dispatch")
 
 class EnsurecsrfToken(APIView):
 

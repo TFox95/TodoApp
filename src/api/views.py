@@ -2,6 +2,8 @@ from urllib import request
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response as Res
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 from .serializers import TodoSerialiers
 from .models import Todo, Category, Priority
@@ -22,8 +24,8 @@ class TodoView(APIView):
         APIView.__init__(self)
         self.permission_classes = [permissions.IsAuthenticated]
         self.serializer_class = TodoSerialiers
-
-    def get_object(self, pk):
+        self.authentication_classes = [TokenAuthentication, SessionAuthentication]
+    def get_object(self, pk=None):
         user = self.request.user
 
         if user.is_staff:
@@ -43,13 +45,12 @@ class TodoView(APIView):
         else:
             raise Http404
 
-    @method_decorator(decorator=csrf_exempt, name="dispatch")
     def get(self, request, pk=None, format=None):
 
         user = self.request.user
 
         if pk is None:
-            try:
+            #try:
 
                 if user.is_staff:
                     todos = self.get_object(pk=pk)
@@ -67,7 +68,7 @@ class TodoView(APIView):
                     return Res(data={"error": "user not logged in"},
                                status=status.HTTP_409_CONFLICT)
 
-            except:
+            #except:
                 return Res(data={"error": "Todo's was unable to load. Please, try again"},
                            status=status.HTTP_408_REQUEST_TIMEOUT)
 

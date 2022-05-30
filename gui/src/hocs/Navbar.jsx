@@ -37,7 +37,7 @@ const Navbar = ({ isAuthenticated, logoutAPI, token }) => {
                     <NavLink className="nav-link" to="/Dashboard" >Dashboard</NavLink>
                 </li>
                 <li>
-                    <NavLink className="nav-link" to="/create" >Create Todo</NavLink>
+                    <NavLink className="nav-link" to="/Create" >Create Todo</NavLink>
                 </li>
             </ul>
             <ul className="navbar-nav ms-auto">

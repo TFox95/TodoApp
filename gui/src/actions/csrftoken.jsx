@@ -13,12 +13,14 @@ const CSRFToken = () => {
                 let cookie = cookies[i].trim();
                 if (cookie.substring(0, name.length + 1) === (name + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    console.log('csrftoken', cookieValue)
                     break;
                 }
             }
         }
         return cookieValue;
     }
+
 
     useEffect(() => {
         const fetchData = async () => {
