@@ -12,25 +12,25 @@ const initialState = {
 };
 
 function auth (state = initialState, action) {
-    const { type, payloadOne, payloadTwo } = action;
+    const { type, payload } = action;
 
     switch (type) {
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: payloadOne
+                isAuthenticated: payload
             }
         case REGISTER_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: payloadOne
+                isAuthenticated: payload
             }
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
-                token: payloadOne,
-                username: payloadTwo
+                isAuthenticated: payload.isAuthenticated,
+                token: payload.credintials.token,
+                username: payload.credintials.username
 
             }
         case AUTHENTICATED_FAIL:

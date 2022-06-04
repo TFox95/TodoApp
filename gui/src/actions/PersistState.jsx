@@ -16,7 +16,7 @@ export class authStateLoader {
             const serializedState = persistedState();
 
 
-            if (serializedState === 'null' || null) {
+            if (serializedState === null) {
                 return this.initializeState();
             } else {
                 return serializedState;

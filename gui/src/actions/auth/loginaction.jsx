@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     LOGIN_SUCCESS, LOGIN_FAIL,
 } from "../types";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 const loginAPI = (username, password) => async dispatch => {
 
@@ -10,7 +10,7 @@ const loginAPI = (username, password) => async dispatch => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-CSRFToken': Cookie.get('csrftoken')
+            'X-CSRFToken': Cookies.get('csrftoken')
         }
     };
 
@@ -26,8 +26,7 @@ const loginAPI = (username, password) => async dispatch => {
         if (Res) {
             dispatch({
                 type: LOGIN_SUCCESS,
-                payloadOne: Res.token,
-                payloadTwo: Res.username
+                payload: Res
             });
         } else {
             dispatch({

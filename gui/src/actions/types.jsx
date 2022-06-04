@@ -8,6 +8,10 @@ export const LOGOUT_FAIL = 'LOGOUT_FAIL';
 export const AUTHENTICATED_SUCCESS = 'AUTHENTICATED_SUCCESS';
 export const AUTHENTICATED_FAIL = 'AUTHENTICATED_FAIL';
 
-// Notes Dispatch States
-export const LOAD_NOTES_SUCCESS = 'LOAD_NOTES_SUCCESS';
-export const LOAD_NOTES_FAIL = 'LOAD_NOTES_FAIL';
+// Tasks Dispatch States
+export const LOAD_TASKS_SUCCESS = 'LOAD_TASKS_SUCCESS';
+export const LOAD_TASKS_FAIL = 'LOAD_TASKS_FAIL';
+
+// Category Dispatch States
+export const CATEGORY_SUCCESS = 'CATEGORY_SUCCESS';
+export const CATEGORY_FAIL = 'CATEGORY_FAIL';

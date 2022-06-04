@@ -27,7 +27,6 @@ const Login = ({ loginAPI, isAuthenticated}) => {
     };
     
     if (isAuthenticated)
-        
         return <Navigate to='/Dashboard'/>
 
     return (

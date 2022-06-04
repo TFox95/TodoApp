@@ -18,13 +18,13 @@ class Category(models.Model):
 
 class Priority(models.Model):
 
-    level = models.CharField(max_length=75)
+    title = models.CharField(max_length=75)
 
     class Meta:
         verbose_name_plural = "Priorities"
 
     def __str__(self):
-        return self.level
+        return self.title
 
 
 class Todo(models.Model):

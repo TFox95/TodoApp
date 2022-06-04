@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-    LOGOUT_SUCCESS, LOGOUT_FAIL
+    LOGOUT_SUCCESS, LOGOUT_FAIL, CATEGORY_SUCCESS
 } from "../types";
 import Cookie from "js-cookie";
 
@@ -21,6 +21,10 @@ export const logoutAPI = (token) => async dispatch => {
         if (res.data.success) {
             dispatch({
                 type: LOGOUT_SUCCESS
+            });
+            dispatch({
+                type: CATEGORY_SUCCESS,
+                payload: null
             });
         } else {
             dispatch({
