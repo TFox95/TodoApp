@@ -8,27 +8,27 @@ const Dashboard = ({ isAuthenticated, token }) => {
     if (isAuthenticated !== true)
         return <Navigate exact to='/' />
 
-    let capture = RetrieveTask(token);
+    ;
 
-    const listing = () => {
+    const dynamicTasksList = () => {
+        const listOfTasks = []
+        const taskPromise = RetrieveTask(token)
 
-        let data = []
+        const taskLastPromise = Promise.resolve(taskPromise).then(index => {
+            for (let i in index) {
+                listOfTasks.push(index[i])
+            };
 
-        let myPromise = Promise.resolve(capture).then(capture => {
-            for (let i in capture) {
-                data.push(capture[i]);
-            }
+            listOfTasks.map((i) => {
+                console.log('huehuehue',i)
+            })
 
-        })
-        data.map((index) => {
-            console.log(index.user)
-        })
+            
 
-
-        return data
+        });
+        return taskLastPromise
     }
-
-    console.log(listing())
+    const hitter = dynamicTasksList()
 
     return (
         <div className="container">

@@ -18,7 +18,6 @@ export const priorityOptions = (priorities) => {
     for (let i in priorities) {
         loadedPriorities.push(priorities[i])
     }
-
     let dynamicPriorities = loadedPriorities.map((data) => {
         return <option key={data.id} value={data.id}>{data.title}</option>;
     });
