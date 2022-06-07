@@ -1,14 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { RetrieveTask } from "../actions/tasks/RetrieveTask";
 
-const Dashboard = ({ isAuthenticated }) => {
+const Dashboard = ({ isAuthenticated, token }) => {
 
     if (isAuthenticated !== true)
         return <Navigate exact to='/' />
 
+    let capture = RetrieveTask(token);
+
+    const listing = () => {
+
+        let data = []
+
+        let myPromise = Promise.resolve(capture).then(capture => {
+            for (let i in capture) {
+                data.push(capture[i]);
+            }
+
+        })
+        data.map((index) => {
+            console.log(index.user)
+        })
+
+
+        return data
+    }
+
+    console.log(listing())
+
     return (
-        <div>
+        <div className="container">
             <div className="card text-left wd-5">
                 <div className="card-header">
                     Featured
@@ -27,7 +50,8 @@ const Dashboard = ({ isAuthenticated }) => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token
 })
 
 export default connect(mapStateToProps,)(Dashboard);

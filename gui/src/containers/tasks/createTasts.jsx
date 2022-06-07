@@ -1,50 +1,37 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import CategoryApi from "../../actions/options/categoryAction";
+import { Navigate } from "react-router-dom";
+import PostTask from "../../actions/tasks/postTask";
+import { categoryOptions, priorityOptions } from "../../actions/options/dynamicOptions"
 
-
-
-
-const CreateTask = ({ categories, priorities }) => {
+const CreateTask = ({ PostTask, token, categories, priorities }) => {
 
     const [formData, setFormData] = useState({
         title: "",
         description: "",
         dueDate: "",
         priority: "",
-        category: "",
+        primaryCategory: "",
         completed: false
     });
 
-    const { title, description, dueDate, priority, category, completed } = formData;
+
+    const { title, description, dueDate, priority, primaryCategory, completed } = formData;
 
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (title && description) {}
-    }
+        if (title && description) {
 
-    let loadedCategories = [];
-    let loadedPriorities = [];
-
-    for (let i in categories) {
-        loadedCategories.push(categories[i]);
+            PostTask(token, title, description, dueDate, priority, primaryCategory, completed)
+            return <Navigate exact to="/" />
+        };
     };
+    const listCategory = categoryOptions(categories)
 
-    for (let i in priorities) {
-        loadedPriorities.push(priorities[i])
-    }
-
-    let dynamicPriorities = loadedPriorities.map((data) => {
-        return <option key={data.id} value={data.id}>{data.title}</option>;
-    });
-
-
-    let dynamicCategories = loadedCategories.map((data) => {
-        return <option key={data.id} value={data.id}>{data.title}</option>;
-    });
+    const listPriority = priorityOptions(priorities)
 
     return (
         <div className="container w-75">
@@ -52,7 +39,7 @@ const CreateTask = ({ categories, priorities }) => {
                 <img src="https://flyclipart.com/thumbs/react-hexagon-react-1173834.png" alt="React Powered" width='45' height='45' />
                 <p className="lead"> Create your React-Powered Task</p>
 
-                <form className="form-group" >
+                <form className="form-group" onSubmit={(e) => onSubmit(e)} >
 
                     <span>
                         <label htmlFor="Task-Title">Task's Title</label>
@@ -61,7 +48,7 @@ const CreateTask = ({ categories, priorities }) => {
                             className="form-control"
                             id="title"
                             name="title"
-                            onChange={(e) => onchange(e)}
+                            onChange={(e) => onChange(e)}
                             value={title}
                             placeholder="Enter Task's Title"
                             required />
@@ -73,22 +60,22 @@ const CreateTask = ({ categories, priorities }) => {
                             className="form-control"
                             id="description"
                             name="description"
-                            onChange={(e) => onchange(e)}
+                            onChange={(e) => onChange(e)}
                             value={description}
                             placeholder="place description here..."
                             required />
                     </span>
 
                     <span >
-                        <label htmlFor="category">Category</label>
+                        <label htmlFor="primaryCategory">Category</label>
                         <select className="form-select"
                             aria-label=".form-select-lg example"
-                            id="category"
-                            name="category"
-                            onChange={(e) => onchange(e)}
-                            value={category}>
+                            id="primaryCategory"
+                            name="primaryCategory"
+                            onChange={(e) => onChange(e)}
+                            value={primaryCategory}>
                             <option >-----------</option>
-                            {dynamicCategories}
+                            {listCategory}
                         </select>
                     </span>
 
@@ -97,10 +84,10 @@ const CreateTask = ({ categories, priorities }) => {
                         <select className="form-select"
                             id="priority"
                             name="priority"
-                            onChange={(e) => onchange(e)}
+                            onChange={(e) => onChange(e)}
                             value={priority}>
                             <option >-----------</option>
-                            {dynamicPriorities}
+                            {listPriority}
                         </select>
                     </span>
 
@@ -110,17 +97,17 @@ const CreateTask = ({ categories, priorities }) => {
                             className="form-control"
                             id="dueDate"
                             name="dueDate"
-                            onChange={(e) => onchange(e)}
-                            value={dueDate}/>
+                            onChange={(e) => onChange(e)}
+                            value={dueDate} />
                     </span>
 
                     <span className="mb-3 mt-3 form-check">
-                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                        <label className="form-check-label" htmlFor="completed">Completed</label>
                         <input type="checkbox"
                             className="form-check-input"
                             id="completed"
                             name="completed"
-                            onChange={(e) => onchange(e)}
+                            onChange={(e) => onChange(e)}
                             value={completed} />
                     </span>
 
@@ -133,10 +120,10 @@ const CreateTask = ({ categories, priorities }) => {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth,
-        categories: state.category.categories,
+        token: state.auth.token,
         priorities: state.category.priorities,
+        categories: state.category.categories
     }
 }
 
-export default connect(mapStateToProps, { CategoryApi })(CreateTask)
+export default connect(mapStateToProps, { PostTask })(CreateTask)

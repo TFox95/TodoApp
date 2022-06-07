@@ -9,14 +9,14 @@ const initialState = {
 };
 
 function category (state = initialState, action) {
-    const { type, payloadOne, payloadTwo} = action;
+    const { type, payload} = action;
 
     switch (type) {
         case CATEGORY_SUCCESS:
             return {
                 ...state,
-                categories: payloadOne,
-                priorities: payloadTwo
+                categories: payload.category,
+                priorities: payload.priority
             }
         case CATEGORY_FAIL:
             return {

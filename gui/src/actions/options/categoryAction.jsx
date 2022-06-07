@@ -21,8 +21,7 @@ const CategoryApi = (token) => async dispatch => {
         if (res) {
             dispatch({
                 type: CATEGORY_SUCCESS,
-                payloadOne: res.category,
-                payloadTwo: res.priority
+                payload: res
             });
         } else {
             dispatch({
@@ -34,7 +33,6 @@ const CategoryApi = (token) => async dispatch => {
             type: CATEGORY_FAIL
         });
     }
-
 };
 
-export default CategoryApi;
+export default CategoryApi

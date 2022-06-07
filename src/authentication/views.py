@@ -103,7 +103,7 @@ class LoginView(APIView):
                     token = Token.objects.get_or_create(user=user)
                     requestData.pop("password")
                     requestData.update({"token": f"Token {str(token[0])}"})
-                    return Res(data={"success" :{"credintials" : requestData, "isAuthenticated": "true"}}, status=status.HTTP_200_OK)
+                    return Res(data={"success" :{"credintials" : requestData, "isAuthenticated": True}}, status=status.HTTP_200_OK)
 
                 else:
                     return Res(data={"error": "Error Authenticating"}, status=status.HTTP_400_BAD_REQUEST)

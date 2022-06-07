@@ -8,7 +8,10 @@ class TodoSerializers(serializers.ModelSerializer):
     class Meta:
 
         model = Todo
-        fields = "__all__"
+        fields = ["user", "title",
+                  "description", "dueDate",
+                  "priority", "primaryCategory",
+                  "completed"]
 
 class CategorySerializers(serializers.ModelSerializer):
     class Meta:

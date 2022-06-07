@@ -17,10 +17,10 @@ const Layout = ({CategoryApi, token, children }) => {
     useEffect(() => {
         if (token !== null || 'null') {
             CategoryApi(token)
-        } else if (token === null){
+        } else if (token === null || 'null'){
             localStorage.removeItem("http://Asterisks.com:reduxState")
         }
-    }, [token])
+    }, [token, CategoryApi])
 
     return (
         <Fragment>
