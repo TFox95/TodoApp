@@ -19,7 +19,7 @@ export class authStateLoader {
             if (serializedState === null) {
                 return this.initializeState();
             } else {
-                return serializedState;
+                return  serializedState
             }
         }
         catch (err) {
@@ -30,7 +30,7 @@ export class authStateLoader {
     saveState(state) {
         try {
             let serializedState = JSON.stringify(state);
-            localStorage.setItem("http://Asterisks.com:reduxState", serializedState);
+            localStorage.setItem("http://Asterisks.com:reduxState", `{"auth":${serializedState}}`);
 
         }
         catch (err) {

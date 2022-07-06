@@ -11,6 +11,7 @@ export const AUTHENTICATED_FAIL = 'AUTHENTICATED_FAIL';
 // Tasks Dispatch States
 export const LOAD_TASKS_SUCCESS = 'LOAD_TASKS_SUCCESS';
 export const LOAD_TASKS_FAIL = 'LOAD_TASKS_FAIL';
+export const LOAD_TASKS_CLEAR = 'LOAD_TASKS_CLEAR';
 
 // Category Dispatch States
 export const CATEGORY_SUCCESS = 'CATEGORY_SUCCESS';

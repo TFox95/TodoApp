@@ -30,7 +30,6 @@ export const logoutAPI = (token) => async dispatch => {
             dispatch({
                 type: LOGOUT_FAIL
             });
-            console.log(res)
         }
 
     } catch (err) {

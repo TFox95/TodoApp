@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import PostTask from "../../actions/tasks/postTask";
 import { categoryOptions, priorityOptions } from "../../actions/options/dynamicOptions"
+import { RetrieveTask } from "../../actions/tasks/retrieveTask";
 
-const CreateTask = ({ PostTask, token, categories, priorities }) => {
+const CreateTask = ({ RetrieveTask, PostTask, token,isAuth, categories, priorities }) => {
 
     const [formData, setFormData] = useState({
         title: "",
@@ -25,13 +26,14 @@ const CreateTask = ({ PostTask, token, categories, priorities }) => {
 
         if (title && description) {
 
-            PostTask(token, title, description, dueDate, priority, primaryCategory, completed)
-            return <Navigate exact to="/" />
+            PostTask(token, title, description, dueDate, priority, primaryCategory, completed);
+            RetrieveTask(token);
+            return <Navigate to="/" />
         };
     };
-    const listCategory = categoryOptions(categories)
 
-    const listPriority = priorityOptions(priorities)
+    if (!isAuth)
+        return <Navigate exact to='/' />
 
     return (
         <div className="container w-75">
@@ -75,7 +77,7 @@ const CreateTask = ({ PostTask, token, categories, priorities }) => {
                             onChange={(e) => onChange(e)}
                             value={primaryCategory}>
                             <option >-----------</option>
-                            {listCategory}
+                            {categoryOptions(categories)}
                         </select>
                     </span>
 
@@ -87,7 +89,7 @@ const CreateTask = ({ PostTask, token, categories, priorities }) => {
                             onChange={(e) => onChange(e)}
                             value={priority}>
                             <option >-----------</option>
-                            {listPriority}
+                            {priorityOptions(priorities)}
                         </select>
                     </span>
 
@@ -121,9 +123,10 @@ const CreateTask = ({ PostTask, token, categories, priorities }) => {
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
+        isAuth: state.auth.isAuthenticated,
         priorities: state.category.priorities,
         categories: state.category.categories
     }
 }
 
-export default connect(mapStateToProps, { PostTask })(CreateTask)
+export default connect(mapStateToProps, { PostTask, RetrieveTask })(CreateTask)

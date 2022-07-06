@@ -27,12 +27,12 @@ const CategoryApi = (token) => async dispatch => {
             dispatch({
                 type: CATEGORY_FAIL
             })
-        }
+        };
     } catch (err) {
         dispatch({
             type: CATEGORY_FAIL
         });
-    }
+    };
 };
 
-export default CategoryApi
+export default CategoryApi;

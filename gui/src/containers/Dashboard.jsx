@@ -1,40 +1,21 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { RetrieveTask } from "../actions/tasks/RetrieveTask";
+import { RetrieveTask } from "../actions/tasks/retrieveTask";
 
-const Dashboard = ({ isAuthenticated, token }) => {
+const Dashboard = ({ RetrieveTask, isAuthenticated, token }) => {
+    const tasks = useSelector(state => state.task)
 
-    if (isAuthenticated !== true)
-        return <Navigate exact to='/' />
+    if (!isAuthenticated)
+        return <Navigate exact to='/' />;    
 
-    ;
-
-    const dynamicTasksList = () => {
-        const listOfTasks = []
-        const taskPromise = RetrieveTask(token)
-
-        const taskLastPromise = Promise.resolve(taskPromise).then(index => {
-            for (let i in index) {
-                listOfTasks.push(index[i])
-            };
-
-            listOfTasks.map((i) => {
-                console.log('huehuehue',i)
-            })
-
-            
-
-        });
-        return taskLastPromise
-    }
-    const hitter = dynamicTasksList()
+    console.log(tasks)
 
     return (
         <div className="container">
             <div className="card text-left wd-5">
                 <div className="card-header">
-                    Featured
+                    <h5>Featured</h5>
                 </div>
                 <div className="card-body">
                     <h5 className="card-title">Special title treatment</h5>
@@ -54,4 +35,4 @@ const mapStateToProps = (state) => ({
     token: state.auth.token
 })
 
-export default connect(mapStateToProps,)(Dashboard);
+export default connect(mapStateToProps, { RetrieveTask })(Dashboard);

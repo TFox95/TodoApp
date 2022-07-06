@@ -2,15 +2,17 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logoutAPI } from "../actions/auth/logoutaction";
+import { RetrieveTask } from "../actions/tasks/retrieveTask";
 
 
-const Navbar = ({ isAuthenticated, logoutAPI, token }) => {
+
+const Navbar = ({ RetrieveTask, isAuthenticated, logoutAPI, token }) => {
 
     function handleLogout(e) {
         e.preventDefault();
-        logoutAPI(token)
+        logoutAPI(token);
       }
-
+    
     const anonLinks = (
         <Fragment>
             <ul className="navbar-nav me-auto">
@@ -73,4 +75,4 @@ const mapStateToProps = state => ({
     token: state.auth.token
 })
 
-export default connect(mapStateToProps, { logoutAPI })(Navbar);
+export default connect(mapStateToProps, { logoutAPI, RetrieveTask })(Navbar);

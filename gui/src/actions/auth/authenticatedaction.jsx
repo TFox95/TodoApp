@@ -2,9 +2,9 @@ import axios from "axios";
 import {
     AUTHENTICATED_SUCCESS, AUTHENTICATED_FAIL
 } from "../types";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
-const checkAuthentication = (token) => async dispatch => {
+const CheckAuth = (token) => async dispatch => {
 
     try {
         const res = await axios({
@@ -13,39 +13,30 @@ const checkAuthentication = (token) => async dispatch => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'X-CSRFToken': Cookie.get('csrftoken'),
+                'X-CSRFToken': Cookies.get('csrftoken'),
                 'Authorization': `${token}`
             }
         });
-        const Res = res.data;
+        const Res = res.data.success;
 
-        if (Res.success) {
+        if (Res) {
             dispatch({
                 type: AUTHENTICATED_SUCCESS,
-                payloadOne: Res.username,
-                payloadTwo: Res.token
-            });
-        } else if (res.error) {
-            dispatch({
-                type: AUTHENTICATED_FAIL,
-                payloadOne: null,
-                payloadTwo: null
+                payload: Res,
             });
         } else {
             dispatch({
                 type: AUTHENTICATED_FAIL,
-                payloadOne: null,
-                payloadTwo: null
+                payload: null,
             });
-        }
-
+        };
+        
     } catch (err) {
         dispatch({
             type: AUTHENTICATED_FAIL,
-            payloadOne: null,
-            payloadTwo: null
-        })
+            payload: null,
+        });
     };
 };
 
-export default checkAuthentication;
+export default CheckAuth;

@@ -4,23 +4,34 @@ import store from "../store";
 import { authStateLoader } from "../actions/PersistState";
 import CategoryApi from "../actions/options/categoryAction";
 import { connect } from "react-redux";
+import CheckAuth from "../actions/auth/authenticatedaction";
+import { RetrieveTask } from "../actions/tasks/retrieveTask";
 
 
-const Layout = ({CategoryApi, token, children }) => {
+const Layout = ({RetrieveTask, CheckAuth, CategoryApi, token, isAuthenticated, children }) => {
 
     const loader = new authStateLoader();
 
     store.subscribe(() => {
-        loader.saveState(store.getState());
+        loader.saveState(store.getState().auth);
     });
 
     useEffect(() => {
-        if (token !== null || 'null') {
-            CategoryApi(token)
-        } else if (token === null || 'null'){
-            localStorage.removeItem("http://Asterisks.com:reduxState")
+
+        if (token) {
+            CheckAuth(token);
+            if (isAuthenticated) {
+                CategoryApi(token);
+                RetrieveTask(token);
+            } else {
+                alert("error: Current Credintials are not valid please log in later");
+                localStorage.removeItem("http://Asterisks.com:reduxState");
+            }
+
+        } else {
+            localStorage.removeItem("http://Asterisks.com:reduxState");
         }
-    }, [token, CategoryApi])
+    }, [token, CheckAuth, isAuthenticated, CategoryApi])
 
     return (
         <Fragment>
@@ -33,7 +44,8 @@ const Layout = ({CategoryApi, token, children }) => {
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
+        isAuthenticated: state.auth.isAuthenticated
     }
 }
 
-export default connect(mapStateToProps, {CategoryApi})(Layout);
+export default connect(mapStateToProps, { CategoryApi, RetrieveTask, CheckAuth })(Layout);

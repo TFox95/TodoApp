@@ -44,7 +44,7 @@ class IsAuthenticatedView(APIView):
         user = self.request.user
 
         if user.is_authenticated:
-            return Res(data={"success": {"username": f"{user.username}", "token": f"Token {Token.objects.get(user=user)}"}},
+            return Res(data={"success": {"username": f"{user.username}", "token": f"Token {Token.objects.get(user=user)}", "isAuthenticated": True}},
                        status=status.HTTP_200_OK)
 
         else:

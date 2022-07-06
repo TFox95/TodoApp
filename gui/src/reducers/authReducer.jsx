@@ -18,7 +18,8 @@ function auth (state = initialState, action) {
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: payload
+                isAuthenticated: payload.isAuthenticated,
+                username: payload.username
             }
         case REGISTER_SUCCESS:
             return {
@@ -37,9 +38,9 @@ function auth (state = initialState, action) {
         case LOGOUT_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: null,
-                token: null,
-                username: null
+                isAuthenticated: payload,
+                token: payload,
+                username: payload
             }
         case LOGIN_FAIL:
         case LOGOUT_FAIL:
