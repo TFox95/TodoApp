@@ -786,11 +786,8 @@ width: 33vw;
 
 .login-form-block {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.login-form-block input {
-    width: 175px;
-    height: 30px;
-}
+
 
