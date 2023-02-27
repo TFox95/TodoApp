@@ -30,11 +30,11 @@ html, body {
     box-shadow: 0 0.2rem rgba(235, 235, 235, 0.9);
     font-size: 1.2rem;
     /* sticks navbar to the top of page*/
-    position: sticky;
+    position: fixed;
     top: 0;
     /* z index of 10 to ensure the nav bar stays on top of content */
     z-index: 10 !important;
-    transition: all 0.5s ease-in;
+    transition: all 0.3s ease-in-out;
 }
 
 .navbar-container {
@@ -171,16 +171,14 @@ html, body {
 @media screen and (max-width: 480px) {
     .navbar {
         width: 100vw;
-        top: 1rem;
         height: 4rem;
-        border-radius: 0.7rem;
         box-shadow: 0.2rem auto 0.2rem 0.2rem rgba(0, 0, 0, 0.9);
     }
 
     .navbar-container {
         display: inherit;
         justify-content: space-between;
-        height: 4rem;
+        height: inherit;
         z-index: 9 !important;
         padding: 0 15px;
     }
@@ -277,8 +275,10 @@ html, body {
 /* Hero CSS Section */
 
 .hero {
+    display: block;
     background: transparent;
     height: 90vh;
+    margin-top: 3rem;
 }
 
 .hero-container {
@@ -770,18 +770,33 @@ width: 33vw;
 /* Login  CSS Section*/
 
 .login {
-    height: 95.5vh;
+    height: calc(100vh - 3rem);
 }
 
 .login-container {
-    height: inherit;
     display: grid;
-    place-content: center;
-    place-items: center;
+    grid-template-columns: 1fr 2.5fr;
+    
+    background: white;
+
+    margin: 2%;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0.6rem rgba(0,0,0,0.3);
 }
 
 .login-form {
     display: grid;
+    grid-template-rows: 1fr 1.5fr 1fr;
+
+    place-content: center;
+    place-items: center;
+    
+    border-radius: 5rem;
+    margin: 2%;
+    padding: 7% 5%;
+    box-shadow: 0px 0px 0.5rem rgba(0,0,0,0.3);
+    
 }
 
 .login-form-block {
@@ -789,5 +804,118 @@ width: 33vw;
     flex-direction: column;
 }
 
+.form-block-content {
+    display: flex;
+    flex-direction: column;
+    
+
+    padding-bottom: 12.5%;
+    padding-top: 10%;
+
+    text-align: center;
+}
+
+.form-block-content h2 {
+    font-size: 2.2rem;
+    padding-bottom: 5%;
+}
+
+.form-block-content p {
+    font-weight: 100;
+    font-size: 1.1rem;
+}
 
 
+
+.form-item label:not(.checkbox) {
+    display: inline-block;
+    /* position: absolute;
+    pointer-events: none;
+    padding: 14px 5px 6px 26px; */
+
+}
+.form-item:nth-child(1),
+.form-item:nth-child(2) {
+    padding-bottom: 8%;
+}
+
+.form-item input[type="text"],
+.form-item input[type="password"] {
+    width: 17vw;
+    height: 4vh;
+    font-weight: 100;
+    border-radius: 5rem;
+    padding: 0px 0 0 17px;
+    outline: none;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    border: 1px solid ;
+}
+.checkbox {
+    display: flex;
+    place-content: center;
+    place-items: center;
+}
+
+.checkbox input {
+    height: 1rem;
+    width: 2rem;
+    cursor: pointer;
+}
+
+.login-button {
+    display: flex;
+    place-items: center;
+    place-content: center;
+    padding-top: 5%;
+}
+
+.login-button button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+
+    color:white;
+    background: linear-gradient(45deg,  rgb(117, 3, 211) 0%, rgb(229, 0, 236) 100%);
+    width: 16rem;
+    height:3rem;
+}
+.login-form-footer {
+    display: flex;
+    flex-direction: row;
+    
+
+}
+
+.form-footer-block h5 a {
+    color: rgb(44, 44, 44);
+    font-weight: lighter;
+    
+    text-decoration: none;
+}
+.form-footer-block h5 a:hover {
+    color: rgb(44, 44, 44);
+    
+    text-decoration: underline;
+}
+
+.social-login {
+    cursor: pointer;
+    border: none;
+    border-radius: 0.3rem;
+    background: blue;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.login-form-img {
+    display: flex;
+    place-content: flex-start;
+    place-items: center;
+}
+
+.login-form-img img {
+
+    height: 100%;
+    width: 60vw;
+}
