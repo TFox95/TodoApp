@@ -36,6 +36,7 @@
 
             <ul class="nav-flex-end">
                 <li class="navbar-item"><a href="/" class="navbar-links nav-bg-hover-btn active-nav-btn">Home</a></li>
+                <li class="navbar-item"><a href="/register" class="navbar-links nav-bg-hover-btn active-nav-btn">Register</a></li>
             </ul>
         </section>
     </nav>
@@ -54,12 +55,13 @@
 
                     <div class="form-item">
                         <label for="username" class="login-username" >Username </label>
-                        <input type="text" name="username" id="username" placeholder="JohnDoe23" required>
+                        <input type="text" name="username" id="username" placeholder="Username or Email" required>
                     </div>
                     
                     <div class="form-item">
                         <label for="password" class="login-password">Password </label>
-                        <input type="password" name="password" id="password" required>    
+                        <input type="password" name="password" id="password" required>
+                        <input type="checkbox" name="reveal" id="reveal" onclick="revealPassword()">
                     </div>
 
                     <div class="form-item">
@@ -74,11 +76,15 @@
                     </div>
 
                 </div>
+                <!-- this image is only for Mobile ONLY otherwise display: none; -->
+                <div class="login-form-item-img">
+                    <img src="/images/undraw_waiting__for_you_ldha (1).svg" alt="uh oh something happened; try again later.">
+                </div>
 
                 <div class="login-form-footer">
                     <div class="form-footer-block">
                         
-                        <h5>Don't have an account? <a href="#">Click Here</a></h5>
+                        <h5>Don't have an account? <a href="/dashboard.html">Click Here</a></h5>
                         
                     </div>
                 </div>
