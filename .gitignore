@@ -1,5 +1,6 @@
 # python enviroment #
 virt/
+venv/
 
 # Django #
 *.log
