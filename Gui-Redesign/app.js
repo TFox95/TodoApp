@@ -2,7 +2,7 @@
 const smartMenu = document.querySelector("#smart-menu");
 const smartMenuLinks = document.querySelector(".nav-flex-end");
 const LearnNowScroll = document.querySelector(".hero-btn button");
-const scrollHere = document.querySelector("body")
+const scrollHere = document.querySelector("body");
 let prevScrollpos = window.pageYOffset;
 
 
@@ -16,6 +16,15 @@ scrollHere.addEventListener("scroll", () => {
     scrollHere.style.setProperty("overflow", "visible")
 })
 
+const revealPassword = () => {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+}
+
 window.onscroll = () => {
     const currentScrollPos = window.pageYOffset;
     if (prevScrollpos > currentScrollPos) {
@@ -25,6 +34,8 @@ window.onscroll = () => {
     }
     prevScrollpos = currentScrollPos
 }
+
+// if conditionals below
 
 if (LearnNowScroll) {
     LearnNowScroll.addEventListener("click", () => {
