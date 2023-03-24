@@ -768,7 +768,7 @@ width: 33vw;
 /* Login  CSS Section*/
 
 .login {
-    margin-top: 3rem;
+    margin-top: 4rem;
     height: calc(100vh - 3rem);
 }
 
@@ -998,3 +998,21 @@ width: 33vw;
 }
 
 
+/* Dashboard CSS Section  */
+
+.Dashboard {
+    height: calc(100vh - 3rem);
+    display: grid;
+    grid-template-columns: 0.4fr auto;
+    margin: 3.5% 5% auto 5%;
+}
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-container{
+    display: flex;
+    flex-direction: row;
+}
