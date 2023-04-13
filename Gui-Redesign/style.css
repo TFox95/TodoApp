@@ -120,7 +120,8 @@ html, body {
 }
 
 .nav-bg-hover-btn:hover,
-.nav-bg-hover-btn:focus {
+.nav-bg-hover-btn:focus,
+.nav-bg-hover-btn:active {
     /* color: rgb(255, 255, 255); */
     background-image: linear-gradient(to top, rgb(117, 3, 211) 0%, rgb(229, 0, 236) 100%);
     -webkit-background-clip: text;
@@ -965,6 +966,7 @@ width: 33vw;
 
     .login {
         place-content: initial !important;
+        height: 100svh;
     }
 
     .login-container {
@@ -992,27 +994,133 @@ width: 33vw;
 
     .form-item input[type="text"],
     .form-item input[type="password"] {
-        width: 35vw;
+        width: 40vw;
         font-weight: 400;
+        padding: 0px 0 0 10px;
     }
 }
 
 
 /* Dashboard CSS Section  */
 
-.Dashboard {
-    height: calc(100vh - 3rem);
-    display: grid;
-    grid-template-columns: 0.4fr auto;
-    margin: 3.5% 5% auto 5%;
+.dashboard {
+    font-family: "Lato", sans-serif;
+    overflow: hidden;
 }
 
-.sidebar-container {
+.dashboard-container {
+    /* display: flex;
+    flex-direction: row; */
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    margin: 5rem auto auto auto;
+    height: calc(100svh - 5rem);
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 65px;
+    /* position: fixed; */
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.5s;
+    box-shadow: 3px 0 5px -2px whitesmoke;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+
 }
 
-.dashboard-container{
+/* Style the sidenav links and the dropdown button */
+.sidenav a,
+.dropdown-btn {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: flex;
+    border: none;
+    background: none;
+    height: 50px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    place-items: center !important;
+    gap: 20px;
+}
+
+/* On mouse-over */
+.sidenav a:hover,
+.dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+.dashboard-content {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    /* background: #faf9f8; */
+}
+
+.options-content-block {
     display: flex;
     flex-direction: row;
+    place-items: baseline;
+    place-content: space-between;
+    margin: auto 6.5% auto 2.8%;
+    border-bottom: 10px black;
+}
+
+#sort-option {
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+
+/* Content styles */
+
+.dashboard-content-block {
+    height: calc(100svh - 11svh);
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    grid-gap: 25px;
+    padding: 25px;
+    margin-top: 1%;
+    overflow-y: scroll;
+
+}
+
+.card {
+    background-color: #F3F3F3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.card p {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.card a {
+    color: #0078D4;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Note content */
+.note-container {
+    display: flex;
+    transition: 0.5s;
 }
