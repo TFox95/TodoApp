@@ -1,60 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <script src="https://kit.fontawesome.com/d36d794fd4.js" crossorigin="anonymous"></script>
-    <link rel="icon" href="https://logos-download.com/wp-content/uploads/2016/09/React_logo_logotype_emblem.png"
-        type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asteriks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <title>Aestriks Dashboard</title>
     <script defer src="/app.js"></script>
-</head>
-<body>
+
     <nav class="navbar">
         <section class="navbar-container">
+
             <div class="nav-flex-start">
                 <a href="/" class="nav-bg-hover-btn" id="nav-logo"><i class="fa-duotone fa-asterisk"></i>Aestriks</a>
             </div>
 
 
-            <button class="navbar-toggle" id="smart-menu">
+            <div class="navbar-toggle" id="smart-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </button>
+            </div>
 
             <!-- <searchbar class="nav-flex-center">
-                    <p></p>
-                    <input type="text" name="" placeholder="Search" id="">
-                    <button>Search</button>
-                </searchbar> -->
+                <p></p>
+                <input type="text" name="" placeholder="Search" id="">
+                <button>Search</button>
+            </searchbar> -->
 
 
 
             <ul class="nav-flex-end">
                 <li class="navbar-item"><a href="/login.html" class="navbar-links nav-bg-hover-btn">Account</a></li>
-                <li class="navbar-item"><a href="#Register" class="navbar-links nav-bg-hover-btn">Logout</a></li>
+                <li class="navbar-item"><a href="/" class="navbar-links nav-bg-hover-btn">Logout</a></li>
             </ul>
         </section>
     </nav>
+</head>
 
-    <div class="Dashboard">
-        <section class="sidebar-container">
-            <div class="sidebar-content">
-                <button>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-            </div>
+<body class="dashboard">
+    <div class="dashboard-container">
+        <section class="sidenav" id="mySidenav">
+            <a class="menubtn nav-bg-hover-btn"><img src="/images/sidebar-nav icons/menu-2.svg"
+                    alt="uh oh time to go">Menu</a>
+            <a class="nav-bg-hover-btn" href="#"> <img src="/images/sidebar-nav icons/sun-high.svg"
+                    alt="uh oh time to go"> My Day</a>
+            <a class="nav-bg-hover-btn" href="#"><img src="/images/sidebar-nav icons/stars-filled.svg"
+                    alt="uh oh time to go"> Important</a>
+            <a class="nav-bg-hover-btn" href="#"><img src="/images/sidebar-nav icons/checkbox.svg"
+                    alt="uh oh time to go"> Completed</a>
+            <a class="nav-bg-hover-btn" href="#"><img src="/images/sidebar-nav icons/alert-triangle.svg"
+                    alt="uh oh time to go"> OverDue</a>
         </section>
 
-        <section class="dashboard-container">
-            <div class="dashboard-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo aperiam sequi rerum cumque harum ut blanditiis in aliquid quo molestiae nam, eum dolorum doloremque aspernatur perspiciatis voluptas! Itaque, totam eveniet!
+        <div class="dashboard-content">
+            <div class="options-content-block">
+                <h3><span id="date"></span></h3>
+                <a href="#" id="sort-option" class="nav-bg-hover-btn"><img src="/images/sidebar-nav icons/arrows-exchange-2.svg"
+                        alt="uh oh time to go"> Sort By </a href="#">
             </div>
-        </section>
+            <div class="dashboard-content-block">
+
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 2</h2>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="card">
+                        <h2>Task 3</h2>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo
+                            consequat.</p>
+                        <a href="#">View Details</a>
+                    </div>
+
+            </div>
+        </div>
+
+        <div class="note-container">
+             <section class="note-section">
+                
+             </section>
+        </div>
     </div>
+
 </body>
+
 </html>
