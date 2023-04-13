@@ -1,9 +1,12 @@
+
 // variables here
 const smartMenu = document.querySelector("#smart-menu");
 const smartMenuLinks = document.querySelector(".nav-flex-end");
 const LearnNowScroll = document.querySelector(".hero-btn button");
 const scrollHere = document.querySelector("body");
 let prevScrollpos = window.pageYOffset;
+const toggleNav = document.querySelector(".menubtn");
+const toggleAltNav = document.getElementById("sort-option");
 
 
 // functions below
@@ -19,9 +22,9 @@ scrollHere.addEventListener("scroll", () => {
 const revealPassword = () => {
     var x = document.getElementById("password");
     if (x.type === "password") {
-      x.type = "text";
+        x.type = "text";
     } else {
-      x.type = "password";
+        x.type = "password";
     }
 }
 
@@ -35,6 +38,13 @@ window.onscroll = () => {
     prevScrollpos = currentScrollPos
 }
 
+const updateDate = () => {
+    const dateElem = document.getElementById("date");
+    const currentDate = new Date();
+    dateElem.innerHTML = currentDate.toDateString();
+    setTimeout(updateDate, 30000);
+  };
+
 // if conditionals below
 
 if (LearnNowScroll) {
@@ -43,4 +53,29 @@ if (LearnNowScroll) {
             behavior: "smooth"
         })
     })
+}
+
+if (toggleNav) {
+
+    toggleNav.addEventListener("click", () => {
+        const sideNav = document.getElementById("mySidenav");
+        if (sideNav.style.width === "230px") {
+            return sideNav.style.width = "65px";
+        }
+        return sideNav.style.width = "230px";
+    
+    });
+
+    window.addEventListener("load", () => {
+        updateDate();
+    })
+
+    toggleAltNav.addEventListener("click", () => {
+        const altNav = document.querySelector(".note-container");
+        if (altNav.style.width === "230px") {
+            return altNav.style.width = "0px";
+        }
+        return altNav.style.width = "230px";
+    
+    });
 }
