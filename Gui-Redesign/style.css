@@ -1120,7 +1120,29 @@ width: 33vw;
 }
 
 /* Note content */
-.note-container {
+.sort-container {
+    transition: 0.5s;
+    width: 0px;
+}
+
+.sort-section {
     display: flex;
+    opacity: 0;
+    flex-direction: column;
+    font-size: 25px;
+    gap: 20px;
+    place-items: center;
+    transition: all 0.5s;
+
+}
+
+.sort-item {
+    cursor: pointer;
+    width: 100%;
     transition: 0.5s;
 }
+
+.sort-item input[type="radio"] {
+    display: none;
+  }
+  

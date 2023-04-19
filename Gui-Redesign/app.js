@@ -71,10 +71,13 @@ if (toggleNav) {
     })
 
     toggleAltNav.addEventListener("click", () => {
-        const altNav = document.querySelector(".note-container");
+        const altNav = document.querySelector(".sort-container");
+        const altNavdisplayed = document.querySelector(".sort-section")
         if (altNav.style.width === "230px") {
+            altNavdisplayed.style.opacity = "0";
             return altNav.style.width = "0px";
         }
+        altNavdisplayed.style.opacity = "1";
         return altNav.style.width = "230px";
     
     });
