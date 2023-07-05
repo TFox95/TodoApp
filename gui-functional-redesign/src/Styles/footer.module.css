@@ -1,0 +1,91 @@
+/* Footer CSS Section */
+
+.footer {
+    height: 10vh;
+    background-image: linear-gradient(to bottom,white 0%, whitesmoke 50%, rgba(207, 207, 207, 0) 100%);
+    /* background-image: linear-gradient(to bottom,rgb(255, 255, 255) 0%,rgb(189, 212, 231) 33%, rgb(134, 147, 171) 100% ); */
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    margin: 0% 20%;
+    height: inherit;
+    width: inherit;
+    column-gap: 3rem;
+    place-content: center;
+    place-items: center;
+}
+
+.copyright-section {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: flex-start;
+    text-align: center;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: flex-start;
+}
+
+.footer-section h4 {
+    border-bottom: 2px solid black;
+    font-weight: 500;
+}
+
+.footer-links {
+    list-style: none;
+    margin-top: 0.5rem;
+}
+
+.footer-item a {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: rgb(41, 41, 41);
+    text-shadow: rgba(0, 0, 0, 0.1);
+    transform: all 0.3s ease-in;
+}
+
+.footer-item a:hover {
+    border-bottom: #000000 1px solid;
+}
+
+@media screen and (max-width:1024px) {
+    .footer-container {
+        margin: auto 9%;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        height: 22vh;
+        border-top: 1px solid rgba(0, 0, 0, 0.2) ;
+    }
+    .footer-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        /* flex: 0 1; */
+        gap: 1rem;
+        margin: 5% 20%;
+        text-align: center;
+        place-content: space-around;
+        place-items: center;
+    }
+
+    .copyright-section {
+        display: flex;
+        order: 2;
+        flex-direction: row;
+        text-align: left;
+    }
+
+}

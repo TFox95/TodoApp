@@ -1,0 +1,17 @@
+{
+    "name": "Aestriks Task Manager",
+    "short_name": "Aestriks",
+    "description": "This WebApp is a Task Manager that you can use weather if you're at home, work, or on a set schedule",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#efffff",
+    "background_color": "#ffffef",
+    "icons": [
+      {
+        "src": "./src/Assets/vite.svg",
+        "sizes": "192x192",
+        "type": "image/svg"
+      }
+    ]
+  }
+  

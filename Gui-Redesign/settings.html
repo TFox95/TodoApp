@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Aestriks</title>
+    <script src="/app.js" defer></script>
+
+    <nav class="navbar">
+        <section class="navbar-container">
+
+            <div class="nav-flex-start">
+                <a href="/" class="nav-bg-hover-btn" id="nav-logo"><i class="fa-duotone fa-asterisk"></i>Aestriks</a>
+            </div>
+
+
+            <div class="navbar-toggle" id="smart-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <!-- <searchbar class="nav-flex-center">
+                <p></p>
+                <input type="text" name="" placeholder="Search" id="">
+                <button>Search</button>
+            </searchbar> -->
+
+
+
+            <ul class="nav-flex-end">
+                <li class="navbar-item"><a href="/account.html" class="navbar-links nav-bg-hover-btn">Account</a></li>
+                <li class="navbar-item"><a href="/" class="navbar-links nav-bg-hover-btn">Logout</a></li>
+            </ul>
+        </section>
+    </nav>
+
+</head>
+<body>
+    <div class="settings">
+        <main class="settings-container">
+            <div class="settings-sidenav">
+                <div class="settings-selection"></div>
+                <div class="settings-selection"></div>
+                <div class="settings-selection"></div>
+                <div class="settings-selection"></div>
+                <div class="settings-selection"></div>
+            </div>
+
+            <div class="settings-main-container">
+                <div id="root"></div>
+
+                <script src="/settingsPages/dynamicPages.jsx"></script>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

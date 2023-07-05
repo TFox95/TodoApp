@@ -1,0 +1,20 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Kumbh Sans", sans-serif;
+}
+
+/* Scrollbar CSS Section */
+
+html, body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border: 1px solid slategrey;
+  border-radius: 3rem;
+  
+}
