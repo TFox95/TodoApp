@@ -1,7 +1,8 @@
+import * as React from "react";
 import { handleScroll, handleSmartMenu } from "../Utils/navbarUtils";
 
 
-const Navbar = () => {
+const Navbar = (): React.ReactNode => {
 
     window.onscroll = () => {
         window.addEventListener("scroll", handleScroll)
