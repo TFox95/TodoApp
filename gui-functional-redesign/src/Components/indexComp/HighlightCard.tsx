@@ -1,6 +1,7 @@
 import * as React from "react";
+import { HighlightCardInterface } from "../../lib/interfaces/index/interfaces";
 
-const HighlightCard = (props: any) => {
+const HighlightCard = (props: HighlightCardInterface) => {
 
   return (
     <div className={React.Children.toArray(props.styles).join(" ")}>
