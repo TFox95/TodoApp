@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
+import { AuthCardInterface } from "../../lib/interfaces/auth/intterfaces";
 
 
-const AuthCard = (props: any) => {
+const AuthCard = (props: AuthCardInterface) => {
 
     return (
         <main className="auth">
