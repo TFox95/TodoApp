@@ -1,5 +1,6 @@
 import * as React from "react";
 import { sidebarToggle } from "../../Utils/dashUtils";
+import { sidebarInterface } from "../../lib/interfaces/dash/Interfaces";
 
 import menuIco from "../../Assets/sidebar-nav icons/menu-2.svg";
 import sunIco from "../../Assets/sidebar-nav icons/sun-high.svg";
@@ -8,9 +9,13 @@ import checkboxIco from "../../Assets/sidebar-nav icons/checkbox.svg";
 import alertTriangleIco from "../../Assets/sidebar-nav icons/alert-triangle.svg"
 
 
-const Sidebar = (props: any): React.ReactNode => {
+const Sidebar = (props: sidebarInterface): React.ReactNode => {
 
-  const specificSide = props.position as string;
+  const specificSide = props.position;
+
+  const handleClick = (option: string) => {
+    console.log(option)
+  };
 
   if (specificSide.toLowerCase() === String("left"))
     return (
@@ -19,19 +24,19 @@ const Sidebar = (props: any): React.ReactNode => {
           <img src={menuIco} alt="uh oh time to go" />
           Menu
         </a>
-        <a className="nav-bg-hover-btn" href="#">
+        <a className="nav-bg-hover-btn" href="#" onClick={() => handleClick("myday")}>
           <img src={sunIco} alt="uh oh time to go" />
           My Day
         </a>
-        <a className="nav-bg-hover-btn" href="#">
+        <a className="nav-bg-hover-btn" href="#" onClick={() => handleClick("important")}>
           <img src={starsIco} alt="uh oh time to go" />
           Important
         </a>
-        <a className="nav-bg-hover-btn" href="#">
+        <a className="nav-bg-hover-btn" href="#" onClick={() => handleClick("completed")}>
           <img src={checkboxIco} alt="uh oh time to go" />
           Completed
         </a>
-        <a className="nav-bg-hover-btn" href="#">
+        <a className="nav-bg-hover-btn" href="#" onClick={() => handleClick("overdue")}>
           <img src={alertTriangleIco} alt="uh oh time to go" />
           OverDue
         </a>
