@@ -14,7 +14,7 @@ const handleScroll: () => void = () => {
     prevScrollPos = currentScrollPos;
 };
 
-const handleSmartMenu = () => {
+const handleSmartMenu: () => void = () => {
     const smartMenuElements = document.querySelector("#smart-menu");
     const smartMenuLinks = document.querySelector(".nav-flex-end");
 
