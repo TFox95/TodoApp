@@ -11,7 +11,7 @@ const Navbar = (): React.ReactNode => {
     const anonLinks =
         <section className={"navbar-container"}>
             <div className={"nav-flex-start"}>
-                <a href="/" className={"nav-bg-hover-btn"} id={"nav-logo"}><i className="fa-duotone fa-asterisk"></i>Aestriks</a>
+                <a href="/" className={"nav-bg-hover-btn"} id={"nav-logo"}><i className="fa-duotone fa-asterisk"></i>Aestrisks</a>
             </div>
 
 
